@@ -225,7 +225,7 @@ jar {
 
 idea {
     module {
-        inheritOutputDirs = true
+        inheritOutputDirs = false
     }
     project {
         settings {
