@@ -53,8 +53,7 @@ tasks.decompressDecompiledSources.enabled !propertyBool('change_minecraft_source
 java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(propertyBool('use_modern_java_syntax') ? 16 : 8))
-        // Azul covers the most platforms for Java 8 toolchains, crucially including MacOS arm64
-        vendor.set(JvmVendorSpec.AZUL)
+        vendor.set(JvmVendorSpec.ORACLE)
     }
     if (propertyBool('generate_sources_jar')) {
         withSourcesJar()
@@ -357,3 +356,9 @@ idea.project.settings {
 
 apply from: 'gradle/scripts/publishing.gradle'
 apply from: 'gradle/scripts/extra.gradle'
+
+def hostLdPath = System.getenv('LD_LIBRARY_PATH') ?: ''
+tasks.withType(JavaExec).configureEach { JavaExec exec ->
+    exec.environment 'LD_LIBRARY_PATH', hostLdPath + ":/run/current-system/sw/lib"
+    exec.environment '__GL_THREADED_OPTIMIZATIONS', '0'
+}
