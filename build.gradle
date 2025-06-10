@@ -357,6 +357,7 @@ idea.project.settings {
 apply from: 'gradle/scripts/publishing.gradle'
 apply from: 'gradle/scripts/extra.gradle'
 
+// NixOS + Wayland fixes
 def hostLdPath = System.getenv('LD_LIBRARY_PATH') ?: ''
 tasks.withType(JavaExec).configureEach { JavaExec exec ->
     exec.environment 'LD_LIBRARY_PATH', hostLdPath + ":/run/current-system/sw/lib"

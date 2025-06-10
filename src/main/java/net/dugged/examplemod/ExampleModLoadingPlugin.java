@@ -12,7 +12,7 @@ import java.util.Map;
 public class ExampleModLoadingPlugin implements IFMLLoadingPlugin {
     public ExampleModLoadingPlugin() {
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.examplemod.json");
+        Mixins.addConfiguration(String.format("mixins.%s.json", Tags.MOD_ID));
     }
 
     // @formatter:off
