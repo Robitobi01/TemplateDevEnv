@@ -17,6 +17,13 @@ out
 build
 .gradle
 
+# kate
+*.kate-swp
+
 # other
 eclipse
 run
+
+# Nix / direnv
+.direnv/
+result
