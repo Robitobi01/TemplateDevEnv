@@ -120,3 +120,19 @@ idea.module {
     downloadSources = true
     excludeDirs += files('run', '.direnv')
 }
+
+def copyGameSettings = tasks.register('copyGameSettings') {
+    def source = layout.projectDirectory.file('gradle/game/options.txt').asFile
+    def target = layout.projectDirectory.file('run/client/options.txt').asFile
+    inputs.file(source)
+    outputs.file(target)
+    onlyIf { !target.exists() }
+    doLast {
+        target.parentFile.mkdirs()
+        java.nio.file.Files.copy(source.toPath(), target.toPath())
+    }
+}
+
+tasks.matching { it.name == 'runClient' }.configureEach {
+    dependsOn copyGameSettings
+}
