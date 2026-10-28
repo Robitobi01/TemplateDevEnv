@@ -18,6 +18,7 @@ public class ExampleMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        ConfigCleanup.prune(Tags.MOD_ID);
         LOGGER.info("Hello From {}! Enabled: {}", Tags.MOD_NAME, Configuration.enabled);
     }
 
@@ -27,6 +28,7 @@ public class ExampleMod {
         public static void onConfigChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
             if (event.getModID().equals(Tags.MOD_ID)) {
                 ConfigManager.sync(Tags.MOD_ID, Config.Type.INSTANCE);
+                ConfigCleanup.prune(Tags.MOD_ID);
             }
         }
     }
